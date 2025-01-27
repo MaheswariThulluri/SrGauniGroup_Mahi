@@ -1,0 +1,117 @@
+﻿
+<div style="text-align:center">
+    <h2>Log In</h2>
+    @if (ViewBag.Message != null)
+    {
+        <div style="color: red;">@ViewBag.Message</div>
+    }
+</div>
+
+
+<style>
+    body {
+        background-color: #f0f0f0; 
+        font-family: Arial, sans-serif;
+    }
+
+    .login-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        width: 40%;
+        margin: 0 auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+    }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            background-color: #fff;
+        }
+
+    .error-message {
+        color: red;
+        font-size: 0.9em;
+        display: none;
+        margin-top: 5px;
+    }
+
+    .login-button {
+        background-color: blue; 
+        color: white;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+        .login-button:hover {
+            background-color: #218838;
+        }
+
+    .form-row.full-width {
+        width: 100%;
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+        .login-link a {
+            text-decoration: none;
+            color: #007bff; 
+        }
+
+            .login-link a:hover {
+                color: #0056b3;
+            }
+</style>
+
+<div class="login-container">
+    <form method="post">
+        <div class="form-row">
+            <label>Email:</label>
+            <input type="email" name="email" required />
+        </div>
+
+        <div class="form-row">
+            <label>Password:</label>
+            <input type="password" name="password" required />
+        </div>
+
+        <div class="form-row full-width">
+            <button type="submit" class="login-button">Login</button>
+        </div>
+
+        <div class="login-link">
+            <p>Don't have an account? <a href="@Url.Action("Signup", "Account")">Sign up here</a></p>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,210 @@
+﻿@model SrGauniGroup_Mahi.Models.User
+
+<div style="text-align:center">
+    <h2>Sign Up</h2>
+    @if (ViewBag.Message != null)
+    {
+        <div id="success-message" style="color: green;">@ViewBag.Message</div>
+    }
+</div>
+
+<style>
+    body {
+        background-color: #f0f0f0; 
+        font-family: Arial, sans-serif;
+    }
+
+    .signup-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        width: 50%;
+        margin: 0 auto;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        width: 48%; 
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        background-color: #f9f9f9;
+    }
+
+    input:focus {
+        border-color: #007bff;
+        outline: none;
+        background-color: #fff;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.9em;
+        display: none;
+        margin-top: 5px;
+    }
+
+    .register-button {
+        background-color: red; 
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .register-button:hover {
+        background-color: #218838;
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .signup-link a {
+        text-decoration: none;
+        color: #007bff; 
+    }
+
+    .signup-link a:hover {
+        color: #0056b3;
+    }
+
+    .form-row .form-group {
+        width: 48%; 
+        margin-bottom: 15px;
+    }
+
+    .form-row .full-width {
+        width: 100%;
+    }
+</style>
+
+<div class="signup-container">
+    <form method="post" id="signupForm">
+        <div class="form-row">
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" name="FirstName" value="@Model?.FirstName" required />
+            </div>
+
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" name="LastName" value="@Model?.LastName" required />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" id="email" name="Email" value="@Model?.Email" required />
+                <div id="email-error" class="error-message">Please enter a valid email address.</div>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number:</label>
+                <input type="text" id="phone" name="PhoneNumber" value="@Model?.PhoneNumber" required />
+                <div id="phone-error" class="error-message">Phone number must be 10 digits and numeric only.</div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Password:</label>
+                <input type="password" id="password" name="Password" required />
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="ConfirmPassword" required />
+                <div id="password-error" class="error-message">Passwords do not match.</div>
+            </div>
+        </div>
+
+        <div class="form-row full-width">
+            <button type="submit" class="register-button">Register</button>
+        </div>
+
+        <div class="signup-link">
+            <p>Already have an account? <a href="@Url.Action("Login", "Account")">Login here</a></p>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function (e) {
+        let isValid = true;
+
+        
+        const email = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const emailPattern = /^[a-z0-9._%+-]+@@[a-z0-9.-]+\.[a-z]{2,}$/;
+        if (!emailPattern.test(email.value)) {
+            emailError.style.display = 'block';
+            isValid = false;
+        } else {
+            emailError.style.display = 'none';
+        }
+
+        
+        const phone = document.getElementById('phone');
+        const phoneError = document.getElementById('phone-error');
+        const phonePattern = /^[0-9]{10}$/;
+        if (!phonePattern.test(phone.value)) {
+            phoneError.style.display = 'block';
+            isValid = false;
+        } else {
+            phoneError.style.display = 'none';
+        }
+
+        
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const passwordError = document.getElementById('password-error');
+        if (password.value !== confirmPassword.value) {
+            passwordError.style.display = 'block';
+            isValid = false;
+        } else {
+            passwordError.style.display = 'none';
+        }
+
+        
+        if (!isValid) {
+            e.preventDefault();
+        }
+
+    });
+
+    window.onload = function () {
+        const successMessage = document.getElementById('success-message');
+        if (successMessage) {
+            setTimeout(function () {
+                successMessage.style.display = 'none';
+            }, 3000); 
+        }
+    };
+</script>
